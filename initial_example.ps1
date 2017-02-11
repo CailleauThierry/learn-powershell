@@ -24,4 +24,6 @@ Add-Type -AssemblyName presentationframework # This line is not necessary when r
 "@
 $reader = (New-Object System.Xml.XmlNodeReader $xaml)
 $Window = [Windows.Markup.XamlReader]::Load($reader)
-$Window.ShowDialog()
+$window.ToolTip = "This demonstrate .ToolTip cool, ins't it?"
+$Window.ShowDialog() # This makes the windows pop-up
+
