@@ -25,5 +25,16 @@ Add-Type -AssemblyName presentationframework # This line is not necessary when r
 $reader = (New-Object System.Xml.XmlNodeReader $xaml)
 $Window = [Windows.Markup.XamlReader]::Load($reader)
 $Window.ToolTip = "This demonstrate .ToolTip cool, ins't it?"
+<#$Window.AllowsTransparency = $True
+$Window.Opacity = .5
+$window.WindowStyle = 'None'
+$Window.Background = 'Green'#>
+$Window.FontSize = 24
+$Window.FontStyle = 'Italic' #"Normal", "Italic", or "Oblique
+$Window.FontWeight = 'Bold' #http://msdn.microsoft.com/en-us/library/system.windows.fontweights
+$Window.Foreground = 'Red'
+$Window.Content = "This is a test!"
+
 $Window.ShowDialog() # This makes the windows pop-up
+
 
