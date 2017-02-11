@@ -25,16 +25,24 @@ Add-Type -AssemblyName presentationframework # This line is not necessary when r
 $reader = (New-Object System.Xml.XmlNodeReader $xaml)
 $Window = [Windows.Markup.XamlReader]::Load($reader)
 $Window.ToolTip = "This demonstrate .ToolTip cool, ins't it?"
-<#$Window.AllowsTransparency = $True
+$Window.AllowsTransparency = $True
 $Window.Opacity = .5
 $window.WindowStyle = 'None'
-$Window.Background = 'Green'#>
+$Window.Background = 'Green'
 $Window.FontSize = 24
 $Window.FontStyle = 'Italic' #"Normal", "Italic", or "Oblique
 $Window.FontWeight = 'Bold' #http://msdn.microsoft.com/en-us/library/system.windows.fontweights
 $Window.Foreground = 'Red'
 $Window.Content = "This is a test!"
+#Click To Close
+#As seen in my demo of  a transparent window, there will be a time when you might need an alternate way to close the window. Luckily, that can be done with your mouse just by clicking on the window with either your left or right mouse button and using the $Window object's Close() method. In this case, I am going to close the Window using the Right mouse button.
+$Window.Add_MouseRightButtonDown({
+    $Window.close()
+})
+#Click To Drag
+#Same issues with using transparency means that you have no real way to move your window around. We get around that by once again using the MouseRight/LeftButton event and then using the DragMove() method.
+$Window.Add_MouseLeftButtonDown({
+		$Window.DragMove()
+})
 
 $Window.ShowDialog() # This makes the windows pop-up
-
-
