@@ -46,13 +46,18 @@ $Window.Add_MouseRightButtonDown({
 $Window.Add_MouseLeftButtonDown({
 		$Window.DragMove()
 })#>
-# What happens on Close
-$Window.Add_Closed({
-		 (Get-Date).ToString()  + ': ' + 'Closing Cleanup' | Out-File .\initial_example.log -Append
-	})
+
 # What happens on Open
 $Window.Add_Loaded({
-		(Get-Date).ToString() + ': ' + 'Starting up Application' | Out-File .\initial_example.log -Append
+		$timer.Interval = [TimeSpan]"0:0:5.00″
+		$timer.Add_Tick({[Windows.Input.InputEventHandler]{$Global:Window.UpdateLayout()}})
+		(Get-Date).ToString() + ': ' + 'Starting Timer' | Out-File .\initial_example.log -Append
+		$timer.Start()
+	})
+
+$Window.Add_Closed({
+		(Get-Date).ToString() + ': ' + 'Timer Value' + ': ' + ($timer.GetLifetimeService()).ToString() | Out-File .\initial_example.log -Append
+		(Get-Date).ToString() + ': ' + 'Closing Cleanup' | Out-File .\initial_example.log -Append
 	})
 
 $Window.ShowDialog() # This makes the windows pop-up
